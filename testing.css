@@ -1,0 +1,235 @@
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+#rain {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #202020, #111119);
+    pointer-events: none;
+    z-index: 1; /* Ensure rain is behind the umbrella */
+}
+
+.raindrop {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.6);
+    width: 2px;
+    height: none;
+    box-shadow: 0 0 35px 1px rgba(255, 255, 255, 0.5);
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(150vh);
+        opacity:0;
+    }
+}
+@keyframes gustFallLeft {
+    to {
+        transform: translateY(150vh);
+        rotate:3deg;
+    }
+}
+@keyframes gustFallRight {
+    to {
+        transform: translateY(150vh);
+        rotate:-3deg;
+    }
+}
+@keyframes hailFall {
+    to {
+        transform: translateY(200vh);
+    }
+}
+@keyframes snowflakeFall {
+    0% {
+        rotate:0.1deg;
+    }
+    25% {
+        rotate:0.2deg;
+    }
+    50% {
+        rotate:0.4deg;
+    }
+    75% {
+        rotate:0.8deg;
+    }
+    85% {
+        rotate:0.6deg;
+    }
+    100% {
+        rotate:0.5deg;
+        transform: translateY(120vh);
+    }
+}
+
+.snowflake {
+    user-select: none;
+}
+
+
+.container {
+    position: relative;
+    z-index: 2;
+}
+
+#follower {
+    user-select: none;
+    position: absolute;
+    width: 100px; /* Set your image width */
+    height: 100px; /* Set your image height */
+    transition: transform 0.1s ease;
+}
+
+.ring {
+    position: absolute;
+    border: 5px solid rgb(255, 255, 255); /* Set the color of the ring */
+    animation: ringFade 1s ease-out, ringExpand 1s ease-out;
+    z-index: 3;
+    opacity: 0; /* Initially hidden */
+    left: 150px;
+    top: 150px;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
+}
+
+.ring.active {
+    animation-name: ringExpand, ringFade;
+    animation-duration: 0.5s, 1s;
+    animation-timing-function: ease-out, ease-out;
+    animation-fill-mode: forwards, forwards;
+}
+
+
+
+@keyframes fade {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes ringExpand {
+    to {
+        width: 200px;
+        height:200px;
+    }
+}
+
+@keyframes ringFade {
+    0%, 100% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+.afterimage {
+    position: absolute;
+    width: 100px; /* Set your image width */
+    height: 100px; /* Set your image height */
+    transition: opacity 0.3s ease;
+    transform-origin: center center;
+    z-index: 5;
+}
+
+
+
+
+/* NEW SECTION FOR CUTSCENE -------------------------------------------------------------------*/
+/*
+#scene {
+    position: relative;
+    background-color:#111119;
+    width: 100vw;
+    height: 100vh;
+}
+
+.sphere {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    animation: sphereAnimation 5s linear forwards;
+}
+
+.shockwave {
+    position: absolute;
+    width: 0%;
+    height: 0%;
+    background-color: transparent;
+    border: 20px solid #fff;
+    border-radius: 50%;
+    animation: shockwaveAnimation 5s ease-in;
+    opacity: 0;
+    animation-play-state: paused;
+
+}
+
+
+@keyframes sphereAnimation {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        box-shadow: 0 0 0 0 rgba(115, 115, 115, 0.1);
+    }
+    50% {
+        rotate:0deg;
+        box-shadow: 0 0 200px 100px rgba(172, 172, 172, 0.5);
+    }
+    90% {
+        rotate:0deg;
+        transform: translate(650px, 550px) scale(2);
+        box-shadow: 0 0 20px 10px rgba(255, 255, 255, 1);
+    }
+    100% {
+        transform: translate(650px,550px) scale(0.1);
+        box-shadow: 0 0 500px 300px rgba(255, 255, 255, 1);
+    }
+}
+
+@keyframes shockwaveAnimation {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+        box-shadow: 0 0 500px 300px rgb(0, 0, 0, 1);
+    }
+    50% {
+        box-shadow: 0 0 500px 300px rgb(135, 135, 135);
+    }
+    100% {
+        transform: scale(50);
+        box-shadow: 0 0 5000px 3000px rgba(255, 255, 255, 1);
+        opacity: 1;
+    }
+    
+}
+
+#fadein {
+    position: absolute;
+    width: 100vw; 
+    height: 100vh; 
+    background-color: rgb(255, 255, 255);
+    opacity: 0;
+    animation: fadeInAnimation 10s linear forwards;
+    animation-play-state: paused;
+}
+
+@keyframes fadeInAnimation {
+    1% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+*/
