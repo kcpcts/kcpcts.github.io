@@ -209,9 +209,13 @@ body {
     border-radius: 8px;
     padding: 2rem;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 2rem;
+    transform: translateY(0);
     transition: transform 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    height: auto;
 }
 
 .project-card:hover {
@@ -230,7 +234,9 @@ body {
 
 .project-info {
     flex-grow: 1;
-    padding: 0;  /* Remove previous padding since card has padding now */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .project-info h3 {
@@ -240,7 +246,8 @@ body {
 
 .project-info p {
     color: var(--accent-color);
-    margin-bottom: 1.5rem;
+    margin-bottom: auto;
+    flex-grow: 1;
 }
 
 .project-link {
@@ -248,16 +255,17 @@ body {
     align-items: center;
     gap: 0.5rem;
     color: var(--text-color);
-    text-decoration: none;
     font-weight: 500;
     padding: 0.5rem 1rem;
     border: 1px solid var(--text-color);
     border-radius: 8px;
-    transition: all 0.3s ease;
     background: transparent;
+    margin-top: 1.5rem;
+    width: fit-content;
+    transition: all 0.3s ease;
 }
 
-.project-link:hover {
+.project-card:hover .project-link {
     background: var(--text-color);
     color: var(--bg-color);
 }
@@ -459,21 +467,12 @@ html {
 .scroll-fade-up {
     opacity: 0;
     transform: translateY(60px);
-    transition: all 1s ease;
 }
 
 .scroll-fade-up.visible {
     opacity: 1;
     transform: translateY(0);
-}
-
-/* Add stagger delay for project cards */
-.project-card:nth-child(1) {
-    transition-delay: 0.2s;
-}
-
-.project-card:nth-child(2) {
-    transition-delay: 0.4s;
+    transition: all 1s ease;
 }
 
 /* Add these new section styles */
