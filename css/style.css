@@ -272,12 +272,16 @@ footer {
 
 .social-links {
     margin-bottom: 1rem;
+    display: flex;
+    gap: 2rem;  /* Add consistent gap between icons */
+    justify-content: center;
 }
 
 .social-links a {
     color: var(--text-color);
     opacity: 0.7;
     transition: opacity 0.3s ease;
+    font-size: 1.5rem;  /* Make icons slightly larger */
 }
 
 .social-links a:hover {
