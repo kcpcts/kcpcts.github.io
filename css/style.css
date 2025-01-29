@@ -591,9 +591,9 @@ button[type="submit"]:hover {
 .coming-soon-content h1 {
     font-size: 3.5rem;
     margin-bottom: 1rem;
-    background: linear-gradient(45deg, var(--text-color), var(--accent-color));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-weight: 600;
+    letter-spacing: 2px;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
 }
 
 .coming-soon-content p {
@@ -619,4 +619,58 @@ main {
     width: 100%;
     min-height: 100vh;
     position: relative;
+}
+
+/* Update shimmer effect styles */
+.shimmer {
+    position: relative;
+    color: rgba(255, 255, 255, 0.7); /* Slightly dimmer base text */
+    background: linear-gradient(
+        110deg,
+        rgba(255, 255, 255, 0.7) 0%,
+        rgba(255, 255, 255, 0.7) 45%,
+        rgba(255, 255, 255, 1) 47%,
+        rgba(255, 255, 255, 1) 53%,
+        rgba(255, 255, 255, 0.7) 55%,
+        rgba(255, 255, 255, 0.7) 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 5s ease-in-out infinite;
+}
+
+.shimmer::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    color: transparent;
+    filter: blur(8px);
+    animation: shimmerGlow 5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -100% 0;
+    }
+    100% {
+        background-position: 100% 0;
+    }
+}
+
+@keyframes shimmerGlow {
+    0%, 100% {
+        text-shadow: 
+            0 0 15px rgba(255, 255, 255, 0),
+            0 0 30px rgba(255, 255, 255, 0),
+            0 0 45px rgba(255, 255, 255, 0);
+    }
+    50% {
+        text-shadow: 
+            0 0 15px rgba(255, 255, 255, 0.8),
+            0 0 30px rgba(255, 255, 255, 0.4),
+            0 0 45px rgba(255, 255, 255, 0.2);
+    }
 } 
