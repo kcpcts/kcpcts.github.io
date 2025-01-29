@@ -204,6 +204,14 @@ body {
     margin: 0 auto;
 }
 
+/* Add the @property definition for the animation */
+@property --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+/* Update project card styles */
 .project-card {
     background-color: #1a1a1a;
     border-radius: 8px;
@@ -212,14 +220,60 @@ body {
     align-items: flex-start;
     gap: 2rem;
     transform: translateY(0);
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
     text-decoration: none;
     color: inherit;
     height: auto;
+    position: relative;
+    isolation: isolate;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+/* Update gradient border animation */
+.project-card::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 10px;
+    padding: 2px;
+    background: radial-gradient(
+        from var(--angle) at 50% 50%,
+        var(--accent-color) 0%, 
+        var(--text-color) 33%, 
+        var(--text-color) 66%, 
+        var(--accent-color) 100%
+    );
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.project-card::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 10px;
+    padding: 2px;
+    background: inherit;
+    filter: blur(15px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
 }
 
 .project-card:hover {
     transform: translateY(-10px);
+}
+
+.project-card:hover::before,
+.project-card:hover::after {
+    opacity: 1;
+    animation: borderRotate 4s linear infinite;
 }
 
 .project-image {
@@ -672,4 +726,21 @@ main {
             0 0 30px rgba(255, 255, 255, 0.4),
             0 0 45px rgba(255, 255, 255, 0.2);
     }
+}
+
+/* Add back the rotation animation */
+@keyframes borderRotate {
+    from {
+        --angle: 0deg;
+    }
+    to {
+        --angle: 360deg;
+    }
+}
+
+/* Make sure this is after the @property definition */
+.project-card:hover::before,
+.project-card:hover::after {
+    opacity: 1;
+    animation: borderRotate 4s linear infinite;
 } 
