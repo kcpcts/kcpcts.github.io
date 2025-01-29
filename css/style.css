@@ -237,8 +237,8 @@ body {
     inset: -2px;
     border-radius: 10px;
     padding: 2px;
-    background: radial-gradient(
-        from var(--angle) at 50% 50%,
+    background: conic-gradient(
+        from var(--angle),
         var(--accent-color) 0%, 
         var(--text-color) 33%, 
         var(--text-color) 66%, 
