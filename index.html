@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>
     <header>
@@ -25,6 +26,9 @@
 
     <main>
         <section class="hero">
+            <div id="starfield-holder">
+                <div id="starfield-effect"></div>
+            </div>
             <div class="hero-content">
                 <p class="greeting-text">good afternoon, I'm</p>
                 <h1 class="animate-title">
@@ -38,14 +42,20 @@
         <section class="featured-projects">
             <h2>Featured Work</h2>
             <div class="project-grid">
-                <div class="project-card">
+                <div class="project-card" style="margin-bottom: 100px;">
                     <div class="project-image">
-                        <img src="images/project1.jpg" alt="Project 1">
+                        <img src="images/screennutrition.svg" alt="Project 1">
                     </div>
                     <div class="project-info">
-                        <h3>Project Title</h3>
-                        <p>Brief project description goes here.</p>
-                        <a href="#" class="project-link">View Project →</a>
+                        <h3>Scrolling Time Guardian</h3>
+                        <p>A Chrome extension designed to help you manage and optimize your online browsing habits, providing real-time tracking, customizable limits, and an insightful statistics page to reinforce mindful use.</p>
+                        <a href="https://chromewebstore.google.com/detail/scrolling-time-guardian/phlpehahbacnkpcgnmfajkgolkhodhof" 
+                           class="project-link" 
+                           target="_blank" 
+                           rel="noopener noreferrer">
+                            View Project
+                            <span class="material-symbols-outlined">open_in_new</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -61,6 +71,9 @@
         <p>&copy; 2024 Your Name. All rights reserved.</p>
     </footer>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/isMobile.min.js"></script>
+    <script src="js/starfield.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html> 

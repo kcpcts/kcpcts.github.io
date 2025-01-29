@@ -114,17 +114,11 @@ body {
     text-align: center;
     background-color: var(--bg-color);
     position: relative;
+    overflow: hidden;
 }
 
 .hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at center, #222222 0%, var(--bg-color) 100%);
-    opacity: 0.5;
+    display: none;
 }
 
 .hero-content {
@@ -162,10 +156,30 @@ body {
     color: var(--bg-color);
 }
 
+/* Add this new style for the gradient overlay */
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 200px;  /* Adjust height of fade as needed */
+    background: linear-gradient(
+        to bottom,
+        rgba(17, 17, 17, 0) 0%,
+        rgba(17, 17, 17, 0.8) 50%,
+        rgba(17, 17, 17, 1) 100%
+    );
+    z-index: 2;
+}
+
 /* Featured Projects */
 .featured-projects {
-    padding: 8rem 5%;
+    position: relative;
+    margin-top: -100px;  /* Pull section up to overlap with gradient */
+    padding-top: 8rem;   /* Increase top padding to compensate */
     background-color: var(--bg-color);
+    z-index: 3;
 }
 
 .featured-projects h2 {
@@ -186,7 +200,10 @@ body {
 .project-card {
     background-color: #1a1a1a;
     border-radius: 8px;
-    overflow: hidden;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
     transition: transform 0.3s ease;
 }
 
@@ -195,28 +212,23 @@ body {
 }
 
 .project-image {
-    position: relative;
-    overflow: hidden;
+    flex-shrink: 0;  /* Prevent image from shrinking */
 }
 
 .project-image img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.project-card:hover .project-image img {
-    transform: scale(1.05);
+    width: 60px;  /* Adjust size as needed */
+    height: 60px;
+    object-fit: contain;
 }
 
 .project-info {
-    padding: 2rem;
+    flex-grow: 1;
+    padding: 0;  /* Remove previous padding since card has padding now */
 }
 
 .project-info h3 {
     font-size: 1.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .project-info p {
@@ -225,14 +237,31 @@ body {
 }
 
 .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     color: var(--text-color);
     text-decoration: none;
     font-weight: 500;
-    transition: color 0.3s ease;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--text-color);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background: transparent;
 }
 
 .project-link:hover {
-    color: var(--hover-color);
+    background: var(--text-color);
+    color: var(--bg-color);
+}
+
+.project-link .material-symbols-outlined {
+    font-size: 1.2rem;
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
 }
 
 /* Footer */
@@ -383,4 +412,26 @@ footer {
     100% {
         opacity: 1;
     }
+}
+
+/* Add starfield styles */
+#starfield-holder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+#starfield-effect {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 2s ease;
+}
+
+#starfield-effect.visible {
+    opacity: 1;
 } 
