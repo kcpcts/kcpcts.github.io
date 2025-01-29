@@ -176,8 +176,8 @@ body {
 /* Featured Projects */
 .featured-projects {
     position: relative;
-    margin-top: -100px;  /* Pull section up to overlap with gradient */
-    padding-top: 8rem;   /* Increase top padding to compensate */
+    margin-top: -100px;
+    padding-top: 8rem;
     background-color: var(--bg-color);
     z-index: 3;
 }
@@ -438,4 +438,161 @@ footer {
 
 #starfield-effect.visible {
     opacity: 1;
+}
+
+/* Add at the top with other root styles */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Add these new scroll animation classes */
+.scroll-fade-up {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 1s ease;
+}
+
+.scroll-fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Add stagger delay for project cards */
+.project-card:nth-child(1) {
+    transition-delay: 0.2s;
+}
+
+.project-card:nth-child(2) {
+    transition-delay: 0.4s;
+}
+
+/* Add these new section styles */
+.about-section,
+.contact-section,
+.resume-section,
+.projects-section {
+    min-height: 100vh;
+    padding: 120px 5% 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.about-section h1,
+.contact-section h1,
+.resume-section h1,
+.projects-section h1 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 0.3s;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Style for active nav link */
+.nav-links a.active {
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.nav-links a.active::after {
+    width: 100%;
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #333;
+    border-radius: 4px;
+    background: #1a1a1a;
+    color: var(--text-color);
+}
+
+.form-group textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+button[type="submit"] {
+    background: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--text-color);
+    padding: 0.8rem 2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background: var(--text-color);
+    color: var(--bg-color);
+}
+
+/* Coming Soon styles */
+.coming-soon-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+}
+
+.coming-soon-content {
+    max-width: 600px;
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.coming-soon-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, var(--text-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.coming-soon-content p {
+    font-size: 1.2rem;
+    color: var(--accent-color);
+    margin-bottom: 2rem;
+}
+
+.back-home {
+    display: inline-flex;
+    align-items: center;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.back-home:hover {
+    color: var(--accent-color);
 } 

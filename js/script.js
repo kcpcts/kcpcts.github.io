@@ -62,9 +62,32 @@ const updateGreeting = () => {
     greetingElement.textContent = `good ${timeOfDay}, I'm`;
 };
 
+// Add this to your existing script.js
+function handleScrollAnimations() {
+    const elements = document.querySelectorAll('.scroll-fade-up');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                // Optional: stop observing after animation
+                // observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,  // Trigger when 10% of the element is visible
+        rootMargin: '-50px'  // Trigger slightly before the element comes into view
+    });
+
+    elements.forEach(element => {
+        observer.observe(element);
+    });
+}
+
 // Initialize both functions
 document.addEventListener('DOMContentLoaded', () => {
     navSlide();
     wrapTitleCharacters();
     updateGreeting();
+    handleScrollAnimations();
 }); 
