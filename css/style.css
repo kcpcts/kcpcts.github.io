@@ -228,6 +228,7 @@ body {
     isolation: isolate;
     border: 2px solid transparent;
     background-clip: padding-box;
+    cursor: default; /* Remove pointer cursor from card itself */
 }
 
 /* Update gradient border animation */
@@ -296,6 +297,9 @@ body {
 .project-info h3 {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .project-info p {
@@ -317,20 +321,20 @@ body {
     margin-top: 1.5rem;
     width: fit-content;
     transition: all 0.3s ease;
+    z-index: 2;
+    position: relative;
+    text-decoration: none;
 }
 
-.project-card:hover .project-link {
+/* Keep this hover effect */
+.project-link:hover {
     background: var(--text-color);
     color: var(--bg-color);
 }
 
 .project-link .material-symbols-outlined {
     font-size: 1.2rem;
-    font-variation-settings:
-        'FILL' 0,
-        'wght' 400,
-        'GRAD' 0,
-        'opsz' 24;
+    text-decoration: none;
 }
 
 /* Footer */
@@ -677,7 +681,7 @@ main {
 /* Update shimmer effect styles */
 .shimmer {
     position: relative;
-    color: rgba(255, 255, 255, 0.7); /* Slightly dimmer base text */
+    color: rgba(255, 255, 255, 0.9); /* Slightly dimmer base text */
     background: linear-gradient(
         110deg,
         rgba(255, 255, 255, 0.7) 0%,
@@ -693,7 +697,8 @@ main {
     animation: shimmer 5s ease-in-out infinite;
 }
 
-.shimmer::after {
+/* Remove or comment out the .shimmer::after block entirely */
+/* .shimmer::after {
     content: attr(data-text);
     position: absolute;
     left: 0;
@@ -702,7 +707,7 @@ main {
     color: transparent;
     filter: blur(8px);
     animation: shimmerGlow 5s ease-in-out infinite;
-}
+} */
 
 @keyframes shimmer {
     0% {
@@ -743,4 +748,29 @@ main {
 .project-card:hover::after {
     opacity: 1;
     animation: borderRotate 4s linear infinite;
+}
+
+.code-button {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    padding: 0.2rem 0.6rem;
+    border: 1px solid var(--accent-color);
+    border-radius: 4px;
+    color: var(--accent-color);
+    background: transparent;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    cursor: pointer;
+    z-index: 2;  /* Ensure it's above other elements */
+    position: relative;  /* For z-index to work */
+}
+
+.project-card:hover .code-button {
+    border-color: var(--text-color);
+    color: var(--text-color);
+}
+
+.code-button:hover {
+    background: var(--text-color);
+    color: var(--bg-color) !important;  /* Override the card hover state */
 } 
