@@ -17,6 +17,11 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--bg-color);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 /* Navigation */
@@ -24,6 +29,8 @@ body {
     position: fixed;
     width: 100%;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 1000;
     padding: 2rem 0;
     background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
@@ -266,8 +273,11 @@ body {
 
 /* Footer */
 footer {
+    width: 100%;
+    position: relative;
     background-color: #1a1a1a;
     padding: 3rem 5%;
+    margin-top: auto; /* Push footer to bottom if content is short */
 }
 
 .social-links {
@@ -563,11 +573,19 @@ button[type="submit"]:hover {
     justify-content: center;
     text-align: center;
     padding: 2rem;
+    padding-top: 120px; /* Add extra padding for header */
+    position: relative; /* Add this */
+    width: 100%; /* Add this */
+    max-width: 100%; /* Add this */
+    margin: 0; /* Add this */
 }
 
 .coming-soon-content {
     max-width: 600px;
+    width: 90%; /* Add this */
+    margin: 0 auto; /* Add this */
     animation: fadeInUp 0.8s ease forwards;
+    padding: 2rem; /* Add this */
 }
 
 .coming-soon-content h1 {
@@ -595,4 +613,10 @@ button[type="submit"]:hover {
 
 .back-home:hover {
     color: var(--accent-color);
+}
+
+main {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
 } 
