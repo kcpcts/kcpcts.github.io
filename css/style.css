@@ -22,6 +22,8 @@ body {
     min-height: 100vh;
     width: 100%;
     overflow-x: hidden; /* Prevent horizontal scroll */
+    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+    scrollbar-width: thin;
 }
 
 /* Navigation */
@@ -220,7 +222,7 @@ body {
     align-items: flex-start;
     gap: 2rem;
     transform: translateY(0);
-    transition: all 0.3s ease;
+    transition: all 0.3s ease, opacity 0.3s ease, filter 0.3s ease;
     text-decoration: none;
     color: inherit;
     height: auto;
@@ -229,6 +231,8 @@ body {
     border: 2px solid transparent;
     background-clip: padding-box;
     cursor: default; /* Remove pointer cursor from card itself */
+    opacity: 0.9;  /* Start dimmed */
+    filter: brightness(0.8);  /* Additional dimming */
 }
 
 /* Update gradient border animation */
@@ -269,6 +273,8 @@ body {
 
 .project-card:hover {
     transform: translateY(-10px);
+    opacity: 1;  /* Full opacity on hover */
+    filter: brightness(1);  /* Full brightness on hover */
 }
 
 .project-card:hover::before,
@@ -300,6 +306,7 @@ body {
     display: flex;
     align-items: center;
     gap: 1rem;
+    color: var(--text-color);
 }
 
 .project-info p {
@@ -320,10 +327,11 @@ body {
     background: transparent;
     margin-top: 1.5rem;
     width: fit-content;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease, opacity 0.3s ease;
     z-index: 2;
     position: relative;
     text-decoration: none;
+    opacity: 0.8;
 }
 
 /* Keep this hover effect */
@@ -758,19 +766,49 @@ main {
     border-radius: 4px;
     color: var(--accent-color);
     background: transparent;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease, opacity 0.3s ease;
     text-decoration: none;
     cursor: pointer;
     z-index: 2;  /* Ensure it's above other elements */
     position: relative;  /* For z-index to work */
+    opacity: 0.8;
 }
 
 .project-card:hover .code-button {
     border-color: var(--text-color);
     color: var(--text-color);
+    opacity: 1;
 }
 
 .code-button:hover {
     background: var(--text-color);
     color: var(--bg-color) !important;  /* Override the card hover state */
+}
+
+/* Hide default scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    background: transparent;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Show scrollbar only when hovering over scrollable area */
+body:not(:hover)::-webkit-scrollbar-thumb {
+    background: transparent;
 } 
