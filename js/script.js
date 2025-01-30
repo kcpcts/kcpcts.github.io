@@ -46,16 +46,16 @@ const getGreeting = () => {
     
     if (hour >= 5 && hour < 12) {
         return 'morning';
-    } else if (hour >= 12 && hour < 17) {
+    } else if (hour >= 12 && hour < 15) {
         return 'afternoon';
     } else {
         return 'evening';
     }
 };
 
-// Add function to update greeting
+// Update function to update greeting
 const updateGreeting = () => {
-    const greetingElement = document.querySelector('.greeting-text');
+    const greetingElement = document.querySelector('.type-animation');
     if (!greetingElement) return;
     
     const timeOfDay = getGreeting();
@@ -84,10 +84,23 @@ function handleScrollAnimations() {
     });
 }
 
+function retypeGreeting() {
+    const greeting = document.querySelector('.type-animation');
+    greeting.classList.remove('animating', 'completed');
+    void greeting.offsetWidth;
+    greeting.classList.add('animating');
+    
+    // Remove cursor after animation completes
+    setTimeout(() => {
+        greeting.classList.add('completed');
+    }, 800 + (250 * 16));  // delay + new typing duration
+}
+
 // Initialize both functions
 document.addEventListener('DOMContentLoaded', () => {
     navSlide();
     wrapTitleCharacters();
     updateGreeting();
     handleScrollAnimations();
+    retypeGreeting();  // Initial animation
 }); 

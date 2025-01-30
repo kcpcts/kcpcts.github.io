@@ -10,6 +10,12 @@
     --text-color: #ffffff;
     --accent-color: #666666;
     --hover-color: #888888;
+    --ch-width: 0.61em;
+    --ch-count: 16;      /* Actual length of "good evening, I'm" */
+    --comma-position: 12; /* Position of comma (count the characters up to it) */
+    --pause-duration: 15; /* Percentage of animation to pause at comma */
+    --type-duration: calc(200ms * var(--ch-count));  /* Increased from 180ms to 250ms */
+    --cursor-color: #ffffff;
 }
 
 body {
@@ -435,8 +441,8 @@ footer {
     animation: 
         moveUpWithSettle 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards,
         glowLetter 3s ease forwards;
-    animation-delay: calc(1s + var(--char-index) * 0.1s),
-                    calc(1.3s + var(--char-index) * 0.1s);
+    animation-delay: calc(3.8s + var(--char-index) * 0.1s),
+                    calc(4.1s + var(--char-index) * 0.1s);
     will-change: transform, opacity, text-shadow;
     margin-right: -0.05em;
 }
@@ -488,18 +494,6 @@ footer {
 .greeting-text {
     margin-bottom: -0.5rem;
     margin-top: -6rem;
-    opacity: 0;
-    animation: fadeInGreeting 1s ease forwards;
-    animation-delay: 0.8s;
-}
-
-@keyframes fadeInGreeting {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
 }
 
 /* Add starfield styles */
@@ -811,4 +805,83 @@ main {
 /* Show scrollbar only when hovering over scrollable area */
 body:not(:hover)::-webkit-scrollbar-thumb {
     background: transparent;
+}
+
+/* Typing animation variables */
+.type-animation {
+    display: inline-block;
+    width: 0;  /* Start completely hidden */
+    overflow: hidden;
+    padding-right: 0;  /* Remove initial padding */
+    position: relative;
+    color: var(--accent-color);
+    white-space: nowrap;
+}
+
+.type-animation::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 1.2em;
+    width: 2px;
+    background: var(--cursor-color);
+    opacity: 0;  /* Start invisible */
+}
+
+.type-animation.animating {
+    animation: type var(--type-duration);
+    animation-fill-mode: forwards;
+    animation-delay: 0.8s;
+}
+
+.type-animation.animating::after {
+    animation: cursor 1s ease-in-out infinite;
+    animation-delay: 0.8s;
+    animation-play-state: running;
+}
+
+.type-animation.animating.completed::after {
+    animation: none;
+    opacity: 0;
+}
+
+@keyframes cursor {
+    0%, 100% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes type {
+    0% { 
+        width: 0;
+        padding-right: 0.08em;
+    }
+    /* Type until comma (12 characters: "good evening,") */
+    5% { width: calc(1 * var(--ch-width)); }
+    10% { width: calc(2 * var(--ch-width)); }
+    15% { width: calc(3 * var(--ch-width)); }
+    20% { width: calc(4 * var(--ch-width)); }
+    25% { width: calc(5 * var(--ch-width)); }
+    30% { width: calc(6 * var(--ch-width)); }
+    35% { width: calc(7 * var(--ch-width)); }
+    40% { width: calc(8 * var(--ch-width)); }
+    45% { width: calc(9 * var(--ch-width)); }
+    50% { width: calc(10 * var(--ch-width)); }
+    55% { width: calc(11 * var(--ch-width)); }
+    60% { width: calc(12 * var(--ch-width)); } /* Comma position */
+    /* Longer pause at comma */
+    60%, 80% { width: calc(12 * var(--ch-width)); }
+    /* Slower typing after comma */
+    85% { width: calc(13 * var(--ch-width)); }
+    90% { width: calc(14 * var(--ch-width)); }
+    93% { width: calc(15 * var(--ch-width)); }
+    96%, 100% { 
+        width: calc(16 * var(--ch-width));
+        padding-right: 0;
+    }
 } 
