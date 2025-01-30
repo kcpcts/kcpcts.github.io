@@ -579,8 +579,66 @@ html {
     width: 100%;
 }
 
-.contact-form {
+.contact-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 20px 40px;
+}
+
+.contact-form-wrapper {
+    width: 100%;
     max-width: 600px;
+    background: rgba(26, 26, 26, 0.5);
+    padding: 3rem;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transform-origin: center;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.contact-form-wrapper.shrink {
+    transform: scale(0);
+    opacity: 0;
+}
+
+.result-card {
+    position: absolute;
+    background: rgba(26, 26, 26, 0.5);
+    padding: 2rem 3rem;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.result-card.show {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.form-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.form-header p {
+    color: var(--accent-color);
+}
+
+.form-content {
     margin: 0 auto;
 }
 
@@ -592,36 +650,90 @@ html {
     display: block;
     margin-bottom: 0.5rem;
     color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+.form-group label .material-symbols-outlined {
+    vertical-align: middle;
+    font-size: 1.2rem;
+    margin-right: 0.2rem;
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
     padding: 0.8rem;
-    border: 1px solid #333;
-    border-radius: 4px;
-    background: #1a1a1a;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
     color: var(--text-color);
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(102, 102, 102, 0.2);
 }
 
 .form-group textarea {
-    height: 150px;
     resize: vertical;
+    min-height: 120px;
 }
 
-button[type="submit"] {
-    background: transparent;
+.form-group input[type="tel"] {
+    width: 100%;
+    padding: 0.8rem;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
     color: var(--text-color);
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.form-group button {
+    width: 100%;
+    padding: 1rem;
+    background: transparent;
     border: 1px solid var(--text-color);
-    padding: 0.8rem 2rem;
-    border-radius: 4px;
+    color: var(--text-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
-button[type="submit"]:hover {
+.form-group button:hover {
     background: var(--text-color);
     color: var(--bg-color);
+}
+
+.form-result {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--text-color);
+}
+
+.form-result.success {
+    color: #4CAF50;
+}
+
+.form-result.error {
+    color: #f44336;
+}
+
+/* Update placeholder font */
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
 }
 
 /* Coming Soon styles */
@@ -884,4 +996,21 @@ body:not(:hover)::-webkit-scrollbar-thumb {
         width: calc(16 * var(--ch-width));
         padding-right: 0;
     }
+}
+
+/* Override Chrome's autofill styles */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px rgba(0, 0, 0, 0.2) inset !important;
+    -webkit-text-fill-color: var(--text-color) !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Style the autofill dropdown */
+input:-webkit-autofill:hover + .form-group input,
+input:-webkit-autofill:focus + .form-group input {
+    background: rgba(0, 0, 0, 0.2) !important;
+    border-color: var(--accent-color);
 } 
