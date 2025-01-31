@@ -405,3 +405,44 @@ $(document).ready(function() {
         }
     }, 3000); // 3 second delay
 }); 
+
+class Star {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.z = Math.random() * maxDepth;
+        
+        // Add initial opacity
+        this.opacity = 1;
+        
+        // Calculate fade start point (percentage of canvas height)
+        this.fadeStart = 0.2; // Stars start fading at 40% of screen height
+        this.fadeEnd = 0.4;   // Stars completely fade out at 70% of screen height
+    }
+
+    draw() {
+        const x = this.x;
+        const y = this.y;
+        const z = this.z;
+        
+        // Calculate opacity based on y position
+        const relativeY = y / canvas.height;
+        if (relativeY > this.fadeStart) {
+            this.opacity = Math.max(0, 1 - (relativeY - this.fadeStart) / (this.fadeEnd - this.fadeStart));
+        } else {
+            this.opacity = 1;
+        }
+        
+        const size = (maxDepth - z) / maxDepth * 2;
+        const brightness = (maxDepth - z) / maxDepth;
+        
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(255, 255, 255, ${brightness * this.opacity})`;
+        ctx.arc(x, y, size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    update() {
+        // ... existing update code ...
+    }
+} 
