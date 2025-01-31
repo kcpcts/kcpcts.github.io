@@ -15,22 +15,16 @@ $(document).ready(function() {
         var canvas = document.createElement('canvas');
         canvas.setAttribute('width', canvasWidth);
         canvas.setAttribute('height', canvasHeight);
-        canvas.oncontextmenu = function(e) {
-            e.preventDefault();
-        };
 
-        if (!mobile) {
-            canvas.addEventListener('mousemove', mouseMoveHandler);
-            canvas.addEventListener('mousedown', mouseDownHandler);
-            canvas.addEventListener('mouseup', mouseUpHandler);
-            canvas.addEventListener('mouseenter', mouseEnterHandler);
-            canvas.addEventListener('mouseleave', mouseLeaveHandler);
-            $(canvas).css('cursor', 'pointer');
-        } else {
-            canvas.addEventListener('touchstart', touchStartHandler, false);
-            canvas.addEventListener('touchend', touchEndHandler, false);
-            canvas.addEventListener('touchmove', touchMoveHandler, false);
-            canvas.addEventListener('touchcancel', touchCancelHandler, false);
+        // Remove mouse event listeners
+        const nameText = document.getElementById('name-text');
+        if (nameText) {
+            nameText.addEventListener('mouseenter', () => {
+                mouseActive = true;
+            });
+            nameText.addEventListener('mouseleave', () => {
+                mouseActive = false;
+            });
         }
 
         document.getElementById('starfield-effect').appendChild(canvas);
@@ -61,13 +55,22 @@ $(document).ready(function() {
         var starHolderCount = 3000;
         var starHolder = [];
         var starBgHolder = [];
-        var starSpeed = 10;
-        var starSpeedMin = starSpeed;
-        var starSpeedMax = 200;
+        var starSpeed = 2;  // Start at a very slow speed
+        var starSpeedMin = 2;  // Minimum speed (never completely stops)
+        var starSpeedMax = 200;  // Keep max speed the same
         var starDistance = 8000;
         var starRotation = 0;
 
         var backgroundColor = { r: 17, g: 17, b: 17, a: 255 };
+
+        var acceleration = 0;
+        var maxAcceleration = 1.0;
+        var fovAcceleration = 0;
+        var maxFovAcceleration = 1.0;
+        var accelerationRate = 0.15;  // How quickly acceleration builds
+        var decelerationRate = 0.008;  // How quickly it slows down
+        var fovAccelerationRate = 0.12;
+        var fovDecelerationRate = 0.04;
 
         function clearImageData() {
             for (var i = 0, l = pix.length; i < l; i += 4) {
@@ -198,28 +201,25 @@ $(document).ready(function() {
         function render() {
             clearImageData();
 
-            // Calculate brightness factor based on speed
-            var brightnessMultiplier = 1 + ((starSpeed - starSpeedMin) / (starSpeedMax - starSpeedMin)) * 2;
-
+            // Update acceleration based on mouse state
             if (mouseActive) {
-                starSpeed += 0.5;
-                if (starSpeed > starSpeedMax)
-                    starSpeed = starSpeedMax;
+                acceleration = Math.min(maxAcceleration, acceleration + accelerationRate);
+                fovAcceleration = Math.min(maxFovAcceleration, fovAcceleration + fovAccelerationRate);
             } else {
-                starSpeed -= 1;
-                if (starSpeed < starSpeedMin)
-                    starSpeed = starSpeedMin;
+                acceleration = Math.max(0, acceleration - decelerationRate);
+                fovAcceleration = Math.max(0, fovAcceleration - fovDecelerationRate);
             }
 
-            if (!mouseActive) {
-                fov += 0.5;
-                if (fov > fovMax)
-                    fov = fovMax;
-            } else {
-                fov -= 1;
-                if (fov < fovMin)
-                    fov = fovMin;
-            }
+            // Apply acceleration to speed and FOV
+            var targetSpeed = starSpeedMin + (starSpeedMax - starSpeedMin) * acceleration;
+            starSpeed += (targetSpeed - starSpeed) * 0.1;
+
+            var targetFov = fovMax - (fovMax - fovMin) * fovAcceleration;
+            fov += (targetFov - fov) * 0.1;
+
+            // Smoother brightness calculation
+            var normalizedSpeed = (starSpeed - starSpeedMin) / (starSpeedMax - starSpeedMin);
+            var brightnessMultiplier = 1 + Math.pow(normalizedSpeed, 0.5) * 1.5;  // Use square root for smoother low-end
 
             var warpSpeedValue = mobile ? 
                 starSpeed * (starSpeed / starSpeedMax) : 
@@ -307,11 +307,9 @@ $(document).ready(function() {
             ctx.putImageData(imageData, 0, 0);
             applyBlur();  // Add blur after rendering
 
-            if (mouseActive) {
-                center.x += (mousePos.x - center.x) * 0.015;
-            } else {
-                center.x += ((canvas.width / 2) - center.x) * 0.015;
-            }
+            // Remove mouse position tracking
+            center.x = canvasWidth / 2;
+            center.y = canvasHeight / 2;
 
             if (mouseDown) {
                 starRotation -= 0.1;
@@ -405,44 +403,3 @@ $(document).ready(function() {
         }
     }, 3000); // 3 second delay
 }); 
-
-class Star {
-    constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.z = Math.random() * maxDepth;
-        
-        // Add initial opacity
-        this.opacity = 1;
-        
-        // Calculate fade start point (percentage of canvas height)
-        this.fadeStart = 0.2; // Stars start fading at 40% of screen height
-        this.fadeEnd = 0.4;   // Stars completely fade out at 70% of screen height
-    }
-
-    draw() {
-        const x = this.x;
-        const y = this.y;
-        const z = this.z;
-        
-        // Calculate opacity based on y position
-        const relativeY = y / canvas.height;
-        if (relativeY > this.fadeStart) {
-            this.opacity = Math.max(0, 1 - (relativeY - this.fadeStart) / (this.fadeEnd - this.fadeStart));
-        } else {
-            this.opacity = 1;
-        }
-        
-        const size = (maxDepth - z) / maxDepth * 2;
-        const brightness = (maxDepth - z) / maxDepth;
-        
-        ctx.beginPath();
-        ctx.fillStyle = `rgba(255, 255, 255, ${brightness * this.opacity})`;
-        ctx.arc(x, y, size, 0, Math.PI * 2);
-        ctx.fill();
-    }
-
-    update() {
-        // ... existing update code ...
-    }
-} 
