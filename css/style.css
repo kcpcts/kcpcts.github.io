@@ -18,6 +18,20 @@
     --cursor-color: #ffffff;
 }
 
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin: 0 auto;
+    max-width: 1200px;
+    width: 100%;  /* Add this to ensure full width within max-width */
+}
+
+.project-grid.second-row {
+    margin-top: -50px;
+    grid-template-columns: repeat(2, 1fr);  /* Match the first row's column layout */
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
@@ -239,6 +253,7 @@ body {
     cursor: default; /* Remove pointer cursor from card itself */
     opacity: 0.9;  /* Start dimmed */
     filter: brightness(0.8);  /* Additional dimming */
+    width: 100%;  /* Ensure cards take full width of their grid cell */
 }
 
 /* Update gradient border animation */
@@ -1013,4 +1028,31 @@ input:-webkit-autofill:hover + .form-group input,
 input:-webkit-autofill:focus + .form-group input {
     background: rgba(0, 0, 0, 0.2) !important;
     border-color: var(--accent-color);
+}
+
+.status-tag {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    padding: 0.2rem 0.6rem;
+    border: 1px solid #53eb58;  /* Green border */
+    border-radius: 4px;
+    color: #53eb58;  /* Green text */
+    background: transparent;
+    transition: all 0.3s ease, opacity 0.3s ease;
+    text-decoration: none;
+    cursor: default;
+    z-index: 2;
+    position: relative;
+    opacity: 0.8;
+}
+
+.project-card:hover .status-tag {
+    border-color: #4CAF50;
+    color: #4CAF50;
+    opacity: 1;
+}
+
+.status-tag:hover {
+    background: #4CAF50;
+    color: var(--bg-color) !important;
 } 
