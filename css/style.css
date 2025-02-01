@@ -1034,25 +1034,74 @@ input:-webkit-autofill:focus + .form-group input {
     font-family: 'Courier New', monospace;
     font-size: 0.9rem;
     padding: 0.2rem 0.6rem;
-    border: 1px solid #53eb58;  /* Green border */
     border-radius: 4px;
-    color: #53eb58;  /* Green text */
-    background: transparent;
     transition: all 0.3s ease, opacity 0.3s ease;
     text-decoration: none;
     cursor: default;
     z-index: 2;
     position: relative;
     opacity: 0.8;
+    color: #53eb58;
+    border: 1px solid #53eb58;
+    background: transparent;
+}
+
+/* Add shimmer overlay */
+.status-tag::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        110deg,
+        transparent 0%,
+        transparent 45%,
+        rgba(255, 255, 255, 0.7) 47%,
+        rgba(255, 255, 255, 0.7) 53%,
+        transparent 55%,
+        transparent 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 5s ease-in-out infinite;
+    padding: 0.2rem 0.6rem;
+}
+
+/* Add border shimmer */
+.status-tag::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 4px;
+    padding: 1px;
+    background: linear-gradient(
+        110deg,
+        #53eb58 0%,
+        #53eb58 45%,
+        #7fff83 47%,
+        #7fff83 53%,
+        #53eb58 55%,
+        #53eb58 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 5s ease-in-out infinite;
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: -1;
 }
 
 .project-card:hover .status-tag {
-    border-color: #4CAF50;
-    color: #4CAF50;
     opacity: 1;
 }
 
+/* Remove hover styles that were causing issues */
 .status-tag:hover {
-    background: #4CAF50;
-    color: var(--bg-color) !important;
+    background: transparent;
 } 
