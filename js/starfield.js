@@ -67,8 +67,8 @@ $(document).ready(function() {
         var maxAcceleration = 1.0;
         var fovAcceleration = 0;
         var maxFovAcceleration = 1.0;
-        var accelerationRate = 0.15;  // How quickly acceleration builds
-        var decelerationRate = 0.008;  // How quickly it slows down
+        var accelerationRate = 0.5;  // How quickly acceleration builds
+        var decelerationRate = 0.1;  // How quickly it slows down
         var fovAccelerationRate = 0.12;
         var fovDecelerationRate = 0.04;
 
