@@ -1109,7 +1109,7 @@ input:-webkit-autofill:focus + .form-group input {
 #sphere-container {
     position: fixed;
     top: 25px;
-    right: 52%;  /* Position relative to center, slightly to the left of navigation items */
+    right: 55%;  /* Adjust this value to position it right of "contact" */
     width: 40px;
     height: 40px;
     z-index: 1000;

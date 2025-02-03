@@ -74,8 +74,8 @@ class ScrollingSphere {
     animate() {
         requestAnimationFrame(() => this.animate());
 
-        // Constant base rotation speed (idle animation)
-        this.rotationState.targetY += 0.002;
+        // Increase base rotation speed (from 0.002 to 0.01)
+        this.rotationState.targetY += 0.01;
         
         // Smooth interpolation between current and target rotations
         this.rotationState.x += (this.rotationState.targetX - this.rotationState.x) * 0.1;
