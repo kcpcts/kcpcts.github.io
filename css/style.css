@@ -63,7 +63,7 @@ body {
     margin: 0 auto;
     padding: 0 2rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between;  /* Revert back to space-between */
     align-items: center;
 }
 
@@ -1109,7 +1109,7 @@ input:-webkit-autofill:focus + .form-group input {
 #sphere-container {
     position: fixed;
     top: 25px;
-    right: 700px;
+    right: 52%;  /* Position relative to center, slightly to the left of navigation items */
     width: 40px;
     height: 40px;
     z-index: 1000;
@@ -1117,7 +1117,7 @@ input:-webkit-autofill:focus + .form-group input {
     opacity: 0;
     transform: translateX(-20px);
     animation: fadeInNav 0.5s ease forwards;
-    animation-delay: 0.35s;  /* Place it between "resume" and "projects" */
+    animation-delay: 0.35s;
 }
 
 @keyframes fadeInNav {
