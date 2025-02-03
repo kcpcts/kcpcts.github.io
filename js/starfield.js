@@ -21,9 +21,13 @@ $(document).ready(function() {
         if (nameText) {
             nameText.addEventListener('mouseenter', () => {
                 mouseActive = true;
+                isTrailFading = false;
+                trailOpacity = 1;
+                starOpacity = 1;
             });
             nameText.addEventListener('mouseleave', () => {
                 mouseActive = false;
+                isTrailFading = true;
             });
         }
 
@@ -68,9 +72,15 @@ $(document).ready(function() {
         var fovAcceleration = 0;
         var maxFovAcceleration = 1.0;
         var accelerationRate = 0.5;  // How quickly acceleration builds
-        var decelerationRate = 0.1;  // How quickly it slows down
+        var decelerationRate = 0.05;  // How quickly it slows down
         var fovAccelerationRate = 0.12;
-        var fovDecelerationRate = 0.04;
+        var fovDecelerationRate = 0.004;
+
+        var trailOpacity = 1;
+        var trailFadeSpeed = 0.01;
+        var isTrailFading = false;
+        var starOpacity = 1;
+        var starFadeSpeed = 0.01;  // Slower fade for stars
 
         function clearImageData() {
             for (var i = 0, l = pix.length; i < l; i += 4) {
@@ -200,6 +210,18 @@ $(document).ready(function() {
 
         function render() {
             clearImageData();
+            
+            // Update trail opacity when fading
+            if (isTrailFading) {
+                trailOpacity = Math.max(0, trailOpacity - trailFadeSpeed);
+            }
+
+            // Update star opacity based on speed
+            if (starSpeed <= starSpeedMin + 0.1) {  // Add small buffer for smooth transition
+                starOpacity = Math.max(0.3, starOpacity - starFadeSpeed);  // Fade to 30% opacity
+            } else {
+                starOpacity = Math.min(1, starOpacity + starFadeSpeed);
+            }
 
             // Update acceleration based on mouse state
             if (mouseActive) {
@@ -275,7 +297,10 @@ $(document).ready(function() {
                 if (star.x2d > 0 && star.x2d < canvasWidth && 
                     star.y2d > 0 && star.y2d < canvasHeight) {
                     setPixelAdditive(star.x2d | 0, star.y2d | 0, 
-                        star.color.r, star.color.g, star.color.b, 255);
+                        Math.floor(star.color.r * starOpacity), 
+                        Math.floor(star.color.g * starOpacity), 
+                        Math.floor(star.color.b * starOpacity), 
+                        255);
                 }
 
                 if (starSpeed != starSpeedMin) {
@@ -287,8 +312,14 @@ $(document).ready(function() {
 
                     if (x2d > 0 && x2d < canvasWidth && 
                         y2d > 0 && y2d < canvasHeight) {
-                        drawLine(star.x2d | 0, star.y2d | 0, x2d | 0, y2d | 0, 
-                            star.color.r, star.color.g, star.color.b, 255);
+                        drawLine(
+                            star.x2d | 0, star.y2d | 0, 
+                            x2d | 0, y2d | 0, 
+                            Math.floor(star.color.r * trailOpacity), 
+                            Math.floor(star.color.g * trailOpacity), 
+                            Math.floor(star.color.b * trailOpacity), 
+                            255
+                        );
                     }
                 }
 
