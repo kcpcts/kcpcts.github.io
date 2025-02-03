@@ -152,7 +152,7 @@ body {
 
 .hero-content {
     position: relative;
-    z-index: 1;
+    z-index: 2;
 }
 
 .hero-content h1 {
@@ -1104,4 +1104,29 @@ input:-webkit-autofill:focus + .form-group input {
 /* Remove hover styles that were causing issues */
 .status-tag:hover {
     background: transparent;
+}
+
+#sphere-container {
+    position: fixed;
+    top: 25px;
+    right: 700px;
+    width: 40px;
+    height: 40px;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: fadeInNav 0.5s ease forwards;
+    animation-delay: 0.35s;  /* Place it between "resume" and "projects" */
+}
+
+@keyframes fadeInNav {
+    0% {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
 } 
