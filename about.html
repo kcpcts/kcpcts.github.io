@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coming Soon - Krish Chauhan</title>
+    <title>About - Krish's Portfolio</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.157.0/three.min.js"></script>
+    <script type="module" src="js/particlePortrait.js"></script>
 </head>
 <body>
     <header>
@@ -14,7 +16,7 @@
             <div class="nav-content">
                 <ul class="nav-links">
                     <li><a href="index.html">home</a></li>
-                    <li><a href="about.html">about</a></li>
+                    <li><a href="about.html" class="active">about</a></li>
                     <li><a href="resume.html">résumé</a></li>
                     <li><a href="projects.html">projects</a></li>
                     <li><a href="contact.html">contact</a></li>
@@ -24,11 +26,40 @@
     </header>
 
     <main>
-        <section class="coming-soon-section">
-            <div class="coming-soon-content">
-                <h1 class="shimmer">Coming Soon</h1>
-                <p>This page is under construction. Check back soon!</p>
-                <a href="index.html" class="back-home">← Back to Home</a>
+        <section class="about-section">
+            <div class="about-container">
+                <div class="about-grid">
+                    <div class="particle-portrait">
+                        <!-- Particle effect will be rendered here -->
+                    </div>
+                    <div class="about-content">
+                        <h2>Hello! I'm Krish</h2>
+                        <p>
+                            I'm a software engineer based in San Francisco, passionate about creating 
+                            innovative solutions and exploring new technologies. With a focus on web 
+                            development and AI, I strive to build applications that make a difference.
+                        </p>
+                        <p>
+                            When I'm not coding, you can find me exploring new hiking trails, 
+                            experimenting with photography, or working on personal projects that 
+                            push the boundaries of what's possible with modern web technologies.
+                        </p>
+                    </div>
+                </div>
+                <div class="about-details">
+                    <h3>My Journey</h3>
+                    <p>
+                        Starting my journey in computer science at a young age, I've always been 
+                        fascinated by the potential of technology to solve real-world problems. 
+                        This passion has led me to work on various projects, from Chrome extensions 
+                        that enhance productivity to AI-powered applications that simplify daily tasks.
+                    </p>
+                    <p>
+                        I believe in writing clean, maintainable code and creating intuitive user 
+                        experiences. My goal is to continue growing as a developer while contributing 
+                        to projects that have a meaningful impact.
+                    </p>
+                </div>
             </div>
         </section>
     </main>
@@ -44,7 +75,5 @@
         </div>
         <p>&copy; 2024 Krish Chauhan. All rights reserved.</p>
     </footer>
-
-    <script src="js/script.js"></script>
 </body>
 </html> 
